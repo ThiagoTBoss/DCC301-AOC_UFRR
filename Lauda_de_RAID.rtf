@@ -1,0 +1,71 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1046{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\colortbl ;\red0\green0\blue255;}
+{\*\generator Msftedit 5.41.21.2510;}\viewkind4\uc1\pard\sa200\sl276\slmult1\lang22\b\f0\fs22 N\'edveis de RAID\par
+\b0 Para que um sistema RAID seja criado, \'e9 necess\'e1rio utilizar pelo menos dois HDs (ou SSDs). Mas n\'e3o \'e9 s\'f3 isso: \'e9 necess\'e1rio tamb\'e9m definir o n\'edvel de RAID do sistema. Cada n\'edvel possui caracter\'edsticas distintas justamente para atender \'e0s mais variadas necessidades. A seguir, os n\'edveis mais comuns:\par
+\b RAID 0 (zero)\par
+\b0 Tamb\'e9m conhecido como striping (fracionamento), o n\'edvel RAID 0 \'e9 aquele onde os dados s\'e3o divididos em pequenos segmentos e distribu\'eddos entre os discos. Trata-se de um n\'edvel que n\'e3o oferece prote\'e7\'e3o contra falhas, j\'e1 que nele n\'e3o existe redund\'e2ncia. Isso significa que uma falha em qualquer um dos discos pode ocasionar perda de informa\'e7\'f5es para o sistema todo, especialmente porque "peda\'e7os" do mesmo arquivo podem ficar armazenados em discos diferentes.\par
+O foco do RAID 0 acaba sendo o desempenho, uma vez que o sistema praticamente soma a velocidade de transmiss\'e3o de dados de cada unidade. Assim, pelo menos teoricamente, quanto mais discos houver no sistema, maior \'e9 a sua taxa de transfer\'eancia. N\'e3o \'e9 dif\'edcil entender o porqu\'ea: como os dados s\'e3o divididos, cada parte de um arquivo \'e9 gravada em unidades diferentes ao mesmo tempo. Se este processo acontecesse apenas em um \'fanico HD, a grava\'e7\'e3o seria uma pouco mais lenta, j\'e1 que teria que ser feita sequencialmente.\b\par
+\b0 Por ter estas caracter\'edsticas, o RAID 0 \'e9 muito utilizado em aplica\'e7\'f5es que lidam com grandes volumes de dados e n\'e3o podem apresentar lentid\'e3o, como tratamento de imagens e edi\'e7\'e3o de v\'eddeos.\par
+\b RAID 1\par
+\b0 O RAID 1 \'e9, provavelmente, o modelo mais conhecido. Nele, uma unidade "duplica" a outra, isto \'e9, faz uma "c\'f3pia" da primeira, raz\'e3o pela qual o n\'edvel tamb\'e9m \'e9 conhecido como mirroring (espelhamento). Com isso, se o disco principal falhar, os dados podem ser recuperados imediatamente porque existe c\'f3pias no outro.\par
+Perceba que, por conta desta caracter\'edstica, sistemas RAID 1 devem funcionar em pares, de forma que uma unidade sempre tenha um "clone". Na pr\'e1tica, isso significa que um sistema RAID composto por dois HDs com 500 GB cada ter\'e1 justamente esta capacidade, em vez de 1 TB.\b\par
+\b0 O n\'edvel RAID 1 \'e9 claramente focado na prote\'e7\'e3o dos dados, ou seja, n\'e3o torna o acesso mais r\'e1pido. Na verdade, pode at\'e9 ocorrer uma ligeira perda de desempenho, uma vez que o processo de grava\'e7\'e3o acaba tendo que acontecer duas vezes, uma em cada unidade.\par
+\'c9 importante observar, no entanto, que o uso de RAID 1 n\'e3o dispensa solu\'e7\'f5es de backup. Como a duplica\'e7\'e3o dos dados \'e9 feita praticamente em tempo real, significa que se uma informa\'e7\'e3o indevida for gravada na primeira unidade (como um v\'edrus) ou se um arquivo importante for apagado por engano, o mesmo acontecer\'e1 no segundo disco. Por isso, RAID 1 se mostra mais adequado para proteger o sistema de falhas "f\'edsicas" das unidades.\par
+\b RAID aninhados (h\'edbridos)\b0\par
+No que originalmente denominado RAID h\'edbrido, muitos controladores de armazenamento permitem que n\'edveis RAID sejam aninhados. Os elementos de um RAID podem ser drives individuais ou arrays.\par
+O array final \'e9 chamado de top array. Quando o top array \'e9 RAID 0 (como em RAID 1+0 e RAID 5+0), \'e9 comum se omitir o separador "+" (ficando RAID 10 e RAID 50, respectivamente). \par
+\b RAID 01 (RAID 0+1)\b0\par
+O RAID 0+1 \'e9 uma combina\'e7\'e3o dos n\'edveis 0 (Striping) e 1 (Mirroring), onde os dados s\'e3o divididos entre os discos para melhorar o rendimento, mas tamb\'e9m utilizam outros discos para duplicar as informa\'e7\'f5es. Assim, \'e9 poss\'edvel utilizar o bom rendimento do n\'edvel 0 com a redund\'e2ncia do n\'edvel 1. No entanto, \'e9 necess\'e1rio pelo menos 4 discos, e em quantidade par, para montar um RAID desse tipo. Tais caracter\'edsticas fazem do RAID 0+1 o mais r\'e1pido e seguro, por\'e9m o mais caro de ser implantado.\par
+No RAID 0+1, se um dos discos vier a falhar, o sistema vira um RAID 0.\par
+Ex: se os dois discos que possuam a sequ\'eancia A1,A3,A5,A7 falharem ao mesmo tempo, haver\'e1 perda de dados. Se apenas uma das controladoras falhar, o sistema continua funcionando, mas sem o ganho de velocidade nem toler\'e2ncia a outra falha.\par
+Vantagens:\par
+    seguran\'e7a contra perda de dados;\par
+    pode falhar 1 dos HDs, ou os dois HDs do mesmo DiskGroup, por\'e9m deixando de ser RAID 0+1.\par
+Desvantagens:\par
+    alto custo de expans\'e3o de hardware (custo m\'ednimo = 4N HDs);\par
+    os drives devem ficar em sincronismo de velocidade para obter a m\'e1xima performance.\par
+\b RAID 10 (RAID 1+0)\b0\par
+O RAID 10 tamb\'e9m \'e9 outra combina\'e7\'e3o dos n\'edveis 0 (Striping) e 1 (Mirroring). Cada par ser\'e1 espelhado (RAID 1), garantindo redund\'e2ncia, e os pares ser\'e3o distribu\'eddos (RAID 0), melhorando desempenho. Assim como o RAID 0+1, o RAID 10 exige ao menos 4 discos r\'edgidos, e em quantidade par. At\'e9 metade dos discos pode falhar simultaneamente, sem colocar o conjunto a perder, desde que n\'e3o falhem os dois discos de um espelho qualquer \emdash  raz\'e3o pela qual usam-se discos de lotes diferentes de cada "lado" do espelho. \'c9 o n\'edvel recomendado para bases de dados, por ser o mais seguro e dos mais velozes, assim como qualquer outro uso onde a necessidade de economia n\'e3o se sobreponha \'e0 seguran\'e7a e desempenho.\par
+Vantagens:\par
+    seguran\'e7a contra perda de dados;\par
+    pode falhar um ou dois dos HDs ao mesmo tempo, dependendo de qual avaria.\par
+Desvantagens:\par
+    alto custo de expans\'e3o de hardware (custo m\'ednimo = 4N HDs);\par
+    os drivers devem ficar em sincronismo de velocidade para obter a m\'e1xima performance.\par
+\b RAID 50 (RAID 5+0)\b0\par
+O RAID 50 \'e9 um arranjo h\'edbrido que usa as t\'e9cnicas de RAID com paridade (RAID 5) em conjun\'e7\'e3o com a segmenta\'e7\'e3o de dados (RAID 0). Um arranjo RAID 50 \'e9 essencialmente um arranjo com as informa\'e7\'f5es segmentadas atrav\'e9s de dois ou mais arranjos. Veja o esquema representativo na imagem ao lado.\par
+Vantagens:\par
+    alta taxa de transfer\'eancia;\par
+    \'f3timo para uso em servidores.\par
+Desvantagem:\par
+    alto custo de implementa\'e7\'e3o e expans\'e3o de mem\'f3ria.\par
+\b RAID 100 (RAID 10+0)\b0\par
+O RAID 100 \'e9 implementado utilizando uma combina\'e7\'e3o de software e hardware, ou seja, implementa-se o RAID 0 via software sobre o RAID 10 via hardware. \par
+\b RAID 5\par
+\b0 O RAID 5 \'e9 outro n\'edvel bastante conhecido. Nele, o aspecto da redund\'e2ncia tamb\'e9m \'e9 considerado, mas de maneira diferente: em vez de existir uma unidade de armazenamento inteira como r\'e9plica, os pr\'f3prios discos servem de prote\'e7\'e3o. Deste modo, pode-se inclusive montar o sistema com quantidade \'edmpar de unidades. Mas, como isso \'e9 poss\'edvel? Com o uso de um esquema de paridade.\par
+Neste m\'e9todo de prote\'e7\'e3o, os dados s\'e3o divididos em pequenos blocos. Cada um deles recebe um bit adicional - o bit de paridade - de acordo com a seguinte regra: se a quantidade de bits '1' do bloco for par, seu bit de paridade \'e9 '0'; se a quantidade de bits '1' for \'edmpar, o bit de paridade \'e9 '1'.\par
+As informa\'e7\'f5es de paridade - assim como os pr\'f3prios dados - s\'e3o distribu\'eddas entre todos os discos do sistema. Via de regra, o espa\'e7o destinado \'e0 paridade \'e9 equivalente ao tamanho de um dos discos. Assim, um array formado por tr\'eas HDs de 500 GB ter\'e1 1 TB para armazenamento e 500 GB para paridade.\par
+A partir da\'ed, se em uma tarefa de verifica\'e7\'e3o o sistema constatar, por exemplo, que o bit de paridade de um bloco \'e9 '1', mas ali h\'e1 uma quantidade par de bits, percebe que h\'e1 um erro. Se houver apenas um bit com problema e se o sistema conseguir identific\'e1-lo, conseguir\'e1 substitu\'ed-lo imediatamente. A restaura\'e7\'e3o dos dados poder\'e1 ser feita inclusive depois de o HD ter sido trocado.\par
+Como exemplo, imagine um bloco de dados com os bits '110X' e paridade '1'. O X indica um bit perdido, mas ser\'e1 que ele \'e9 '0' ou '1'? Como a paridade \'e9 '1', significa que o bloco \'e9 composto por quantidade \'edmpar de bits '1'. Logo, se X fosse '0', a paridade tamb\'e9m deveria ser '0', pois ali existiria quantidade par de bits '1'. Isso significa que o bit X s\'f3 pode ser '1'.\par
+Durante a substitui\'e7\'e3o, \'e9 poss\'edvel manter o sistema em funcionamento, principalmente com o uso de equipamentos que suportam hot-swaping, ou seja, a troca de componentes sem necessidade de desligamento do computador. Isso \'e9 poss\'edvel porque os dados s\'e3o distribu\'eddos entre todos os discos. Caso um falhe, o esquema de paridade permite recuperar os dados a partir das informa\'e7\'f5es existentes nas demais unidades.\par
+\b RAID 6\b0\par
+O RAID 5 \'e9 uma op\'e7\'e3o bastante interessante para sistemas que precisam aliar redund\'e2ncia com custos (relativamente) baixos, mas tem uma limita\'e7\'e3o consider\'e1vel: consegue proteger o sistema se apenas um disco apresentar falha.\par
+Uma maneira de lidar com isso \'e9 acrescentando um recurso de nome hot-spare ao sistema. Trata-se de um esquema onde um ou mais discos s\'e3o acrescentados para ficar de reserva, entrando em a\'e7\'e3o t\'e3o logo uma unidade apresente problemas.\par
+Outra alternativa interessante \'e9 o uso de RAID 6. Trata-se de uma especifica\'e7\'e3o mais recente e parecida com o RAID 5, mas com uma importante diferen\'e7a: trabalha com dois bits de paridade. Com isso, \'e9 poss\'edvel oferecer redund\'e2ncia para at\'e9 dois HDs no sistema, em vez de apenas um.\par
+\b RAID 2, 3 e 4\par
+\b0 Os n\'edveis de RAID mostrados at\'e9 agora s\'e3o os mais utilizados, mas h\'e1 alguns menos conhecidos, entre eles, RAID 2, RAID 3 e RAID 4:\par
+\b RAID 2\par
+\b0 RAID \'e9 um tipo de solu\'e7\'e3o de armazenamento que surgiu no final dos anos 1980. Naquela \'e9poca e nos anos seguintes, os HDs n\'e3o tinham o mesmo padr\'e3o de confiabilidade que t\'eam hoje. Por este motivo, foi criado o RAID 2. Ele \'e9, at\'e9 certo ponto, parecido com o RAID 0, mas conta com um mecanismo de detec\'e7\'e3o de falhas do tipo ECC (Error Correcting Code). Hoje, este n\'edvel quase n\'e3o \'e9 mais utilizado, uma vez que praticamente todos os HDs contam com o referido recurso.\par
+\b RAID 3\par
+\b0 Este \'e9 um n\'edvel parecido com o RAID 5 por utilizar paridade. A principal diferen\'e7a \'e9 que o RAID 3 reserva uma unidade de armazenamento apenas para guardar as informa\'e7\'f5es de paridade, raz\'e3o pela qual s\'e3o necess\'e1rios pelo menos tr\'eas discos para montar o sistema. Este n\'edvel tamb\'e9m pode apresentar maior complexidade de implementa\'e7\'e3o pelo fato de as opera\'e7\'f5es de escrita e leitura de dados considerarem todos os discos em vez de trat\'e1-los individualmente.\par
+\b RAID 4\par
+\b0 O RAID 4 tamb\'e9m utiliza o esquema de paridade, tendo funcionamento similar ao RAID 3, com o diferencial de dividir os dados em blocos maiores e de oferecer acesso individual a cada disco do sistema.\par
+Este n\'edvel pode apresentar algum comprometimento de desempenho, pois toda e qualquer opera\'e7\'e3o de grava\'e7\'e3o exige atualiza\'e7\'e3o na unidade de paridade. Por este motivo, seu uso \'e9 mais indicado em sistemas que priorizam a leitura de dados, ou seja, que realizam muito mais consultas do que grava\'e7\'e3o.\par
+\b JBOD (Just a Bunch Of Disks)\b0\par
+Quando o assunto \'e9 RAID, voc\'ea tamb\'e9m pode ouvir falar de JBOD, sigla para Just a Bunch Of Disks (algo como "Apenas um Conjunto de Discos"). N\'e3o se trata de um n\'edvel de RAID, mas sim de um m\'e9todo que simplesmente permite o uso em conjunto de dois ou mais HDs (independente de sua capacidade) de forma a fazer com que o sistema operacional enxergue o arranjo como uma \'fanica unidade l\'f3gica.\par
+De fato, JBOD \'e9 semelhante ao RAID, mas n\'e3o possui foco em desempenho ou redund\'e2ncia, considerando apenas o aumento da capacidade de armazenamento. Aqui, os dados s\'e3o simplesmente gravados e, quando um disco fica lotado, a opera\'e7\'e3o continua no outro. Desta forma, se um HD sofrer danos, os dados existentes nos demais n\'e3o s\'e3o prejudicados.\par
+\b Referencias Bibliograficas\par
+\b0{\field{\*\fldinst{HYPERLINK "https://www.infowester.com/raid.php"}}{\fldrslt{\ul\cf1 https://www.infowester.com/raid.php}}}\f0\fs22\par
+{\field{\*\fldinst{HYPERLINK "https://pt.wikipedia.org/wiki/RAID#RAID_aninhados_(h%C3%ADbridos"}}{\fldrslt{\ul\cf1 https://pt.wikipedia.org/wiki/RAID#RAID_aninhados_(h%C3%ADbridos}}}\f0\fs22 )\par
+}
+ 
